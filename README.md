@@ -7,5 +7,7 @@
 4. Click on button "Load unpacked" (located in top left corner)
 5. Select the extension directory "src"
 
+## Firefox extension installation
+<a href="https://addons.mozilla.org/en-US/firefox/addon/new-capital-exchange-assets/" >Download extension from official Mozilla Add-ons website<a>
 
 ## More browsers to come...
