@@ -1,0 +1,161 @@
+*, *::before, *::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    }
+
+body {
+    font-family: "Segoe UI", Roboto, Ubuntu, "Open Sans", "Helvetica Neue", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333333;
+}
+
+a {
+    outline: none;
+}
+
+.nce-container {
+    background: #ffffff;
+    height: 380px;
+    min-height: 350px;
+    overflow-y: auto;
+    padding: 15px;
+    width: 540px;
+}
+
+/* Header */
+.nce-header {
+    background: #000000;
+    color: #ffffff;
+    padding: 15px;
+}
+.nce-header h1 {
+    font-size: 15px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0 0 0 12px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.nce-logo {
+    vertical-align: middle;
+}
+
+
+/* Assets list */
+#nce-assets-list {
+    padding: 0;
+    margin: 15px 0 0 0;
+}
+.nce-asset {
+    border: 1px solid #e2e2e2;
+    padding: 10px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+.nce-asset-info {
+    position: relative;
+    padding-left: 42px;
+}
+.nce-asset-logo {
+    position: absolute;
+    left: 0;
+    top: -1px;
+}
+.nce-asset-full-name {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1;
+}
+.nce-asset-last-price {
+    font-size: 13px;
+}
+.nce-asset-symbol {
+    margin-right: 6px;
+}
+.nce-asset-24h-info {
+    color: #999999;
+    text-align: right;
+    position: relative;
+    padding-left: 40px;
+}
+.nce-asset-change {
+    margin-left: 30px;
+}
+.nce-asset-change.green {
+    color: #63c66d;
+}
+.nce-asset-change.red {
+    color: #ed1c24;
+}
+
+
+/* Assets tabs */
+.nce-tabs-wrapper {
+    border-bottom: 1px solid #e2e2e2;
+    display: block;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 20px 0;
+}
+.nce-tab {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-left: -4px;
+    border-bottom: 3px solid transparent;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.nce-tab:hover {
+    border-bottom: 3px solid rgba(0, 0, 0, 0.15);
+}
+.nce-tab.active {
+    border-bottom: 3px solid #000000;
+}
+
+.nce-tab-content {
+    display: none;
+}
+.nce-tab-content.active {
+    display: block;
+}
+
+
+/* Footer */
+.nce-footer {
+    border-top: 1px solid #e2e2e2;
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+.nce-footer a {
+    color: #808080;
+}
+.nce-footer a:hover {
+    color: #333333;
+}
+
+/* Loader */
+#nce-loader {
+    background-image: url("/assets/images/progress-circle.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+}
+
+#nce-loader.hide{
+  display: none;
+}
