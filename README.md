@@ -1,4 +1,4 @@
-<img src="https://github.com/EarthshakerDev/new-capital-exchange-browser-extensions/blob/master/src/assets/images/preview.png" width="650" height="640" alt="New Capital Exchange browser extension"/>
+<img src="https://github.com/EarthshakerDev/new-capital-exchange-browser-extension/blob/master/src/assets/images/preview.png" width="650" height="640" alt="New Capital Exchange browser extension"/>
 
 ## Chrome extension installation from source
 1. Clone or download this repository
