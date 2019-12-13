@@ -22,6 +22,7 @@ a {
     overflow-y: auto;
     padding: 15px;
     width: 540px;
+    position: relative;
 }
 
 /* Header */
@@ -43,6 +44,81 @@ a {
 }
 
 
+/* Switch */
+.nce-switch {
+    margin-bottom: 18px !important;
+	  text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+    position: absolute;
+    right: 10px;
+    top: 25px;
+}
+.nce-toggle {
+    margin-left: -9999px;
+    position: absolute;
+    visibility: hidden;
+	}
+.nce-toggle + label {
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+  	font-weight: 400 !important;
+    height: 26px;
+    outline: medium none;
+    padding: 2px;
+    position: relative;
+    width: 50px;
+	}
+.nce-toggle + label:before, .nce-toggle + label:after {
+    bottom: 1px;
+    content: "";
+    display: block;
+    left: 1px;
+    position: absolute;
+    top: 1px;
+	}
+.nce-toggle + label:before {
+    background-color: #d5dadf;
+    border-radius: 50px;
+    color: white;
+	  font-size: 12px;
+    padding: 1px 0 0 9px;
+    right: 2px;
+    transition: background 0.4s ease 0s;
+}
+.nce-toggle + label:after {
+    background-color: #fff;
+    border-radius: 50px;
+    color: #d0d5d5;
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 2px;
+    margin-top: 2px;
+    padding: 0 0 0 3px;
+    transition: margin 0.2s ease-in-out 0s;
+    width: 20px;
+	}
+.nce-toggle:checked + label:before  {
+    background-color: #000000;
+}
+.nce-toggle[disabled] + label:before {
+    background-color: #d5dadf;
+    cursor: not-allowed;
+}
+.nce-toggle[disabled] + label:after {
+    cursor: not-allowed;
+}
+.nce-toggle:checked + label:after {
+    margin-left: 25px;
+}
+.sw-label {
+    margin: 3px 0 0 75px;
+}
+
+
 /* Assets list */
 #nce-assets-list {
     padding: 0;
@@ -56,6 +132,15 @@ a {
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
+}
+.nce-container.usd-price-display .normal-price {
+    display: none;
+}
+.nce-container .usd-price {
+    display: none;
+}
+.nce-container.usd-price-display .usd-price {
+    display: inline-block;
 }
 .nce-asset-info {
     position: relative;
