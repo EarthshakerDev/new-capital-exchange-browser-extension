@@ -159,6 +159,9 @@ a {
 .nce-asset-last-price {
     font-size: 13px;
 }
+.nce-saubsatoshi {
+    color: #d0cece;
+}
 .nce-asset-symbol {
     margin-right: 6px;
 }
@@ -177,6 +180,7 @@ a {
 .nce-asset-change.red {
     color: #ed1c24;
 }
+
 
 
 /* Assets tabs */

@@ -56,22 +56,27 @@ function generateAssets (data) {
                     var symbol = data[i].symbol;
                     var baseAsset = symbol.split('_')[0];
                     var quoteAsset = symbol.split('_')[1];
-                    var assetFullName = getAssetFullName(baseAsset);
+                    var assetFullName = getAssetFullName(baseAsset, data2);
                     var priceChangePercent = parseFloat(data[i].priceChangePercent).toFixed(2);
                     var lastPrice = data[i].lastPrice;
                     var highPrice = data[i].highPrice;
                     var lowPrice = data[i].lowPrice;
 
                     if(quoteAsset == "BTC"){
-                        var lastPriceUsd = data[i].lastPrice * btcUsd;
-                        var highPriceUsd = data[i].highPrice * btcUsd;
-                        var lowPriceUsd = data[i].lowPrice * btcUsd;
+                        var lastPriceUsd = lastPrice * btcUsd;
+                        var highPriceUsd = highPrice * btcUsd;
+                        var lowPriceUsd = lowPrice * btcUsd;
+
+                        // Satoshi emphasis
+                        var lastPrice = btcSatoshi(lastPrice);
+                        var highPrice = btcSatoshi(highPrice);
+                        var lowPrice = btcSatoshi(lowPrice);
                     }
 
                     if(quoteAsset == "TWINS"){
-                        var lastPriceUsd = data[i].lastPrice * twinsUsd;
-                        var highPriceUsd = data[i].highPrice * twinsUsd;
-                        var lowPriceUsd = data[i].lowPrice * twinsUsd;
+                        var lastPriceUsd = lastPrice * twinsUsd;
+                        var highPriceUsd = highPrice * twinsUsd;
+                        var lowPriceUsd = lowPrice * twinsUsd;
                     }
 
                     var priceChangeColor = "green";
@@ -87,11 +92,11 @@ function generateAssets (data) {
                             <div class="nce-asset-info">
                                 <img height="34" width="34" class="nce-asset-logo" src="/assets/images/${baseAsset}.svg" />
                                 <div class="nce-asset-full-name">${assetFullName}</div>
-                                <div><span class="nce-asset-symbol">${baseAsset}</span><span class="nce-asset-last-price"><span class="normal-price">${lastPrice}</span><span class="usd-price">${lastPriceUsd.toFixed(4)}$</span></span><span class="nce-asset-change ${priceChangeColor}">${priceChangePercent}%</span></div>
+                                <div><span class="nce-asset-symbol">${baseAsset}</span><span class="nce-asset-last-price"><span class="normal-price">${lastPrice}</span><span class="usd-price">${lastPriceUsd.toFixed(5)}$</span></span><span class="nce-asset-change ${priceChangeColor}">${priceChangePercent}%</span></div>
                             </div>
                             <div class="nce-asset-24h-info">
-                                <div>24h High: <span class="normal-price">${highPrice}</span><span class="usd-price">${highPriceUsd.toFixed(4)}$</span></div>
-                                <div>24h Low: <span class="normal-price">${lowPrice}</span><span class="usd-price">${lowPriceUsd.toFixed(4)}$</span></div>
+                                <div>24h High: <span class="normal-price">${highPrice}</span><span class="usd-price">${highPriceUsd.toFixed(5)}$</span></div>
+                                <div>24h Low: <span class="normal-price">${lowPrice}</span><span class="usd-price">${lowPriceUsd.toFixed(5)}$</span></div>
                             </div>
                         </li>`;
 
@@ -114,42 +119,42 @@ function generateAssets (data) {
 
 
 // Create asset full name from the base name
-function getAssetFullName(base) {
+function getAssetFullName(base, data) {
 
     var assetFullName = "";
+    var assetsData = data.symbols;;
 
-    switch (base) {
-        case "BCH":
-            assetFullName = "Bitcoin Cash";
-            break;
-        case "BTC":
-            assetFullName = "Bitcoin";
-            break;
-        case "FIX":
-            assetFullName = "Fix Coin";
-            break;
-        case "LTC":
-            assetFullName = "Litecoin";
-            break;
-        case "XEM":
-            assetFullName = "NEM";
-            break;
-        case "TWINS":
-            assetFullName = "win.win";
-            break;
-        case "TRTT":
-            assetFullName = "Trittium";
-            break;
-        case "DOGEC":
-            assetFullName = "DogeCash";
-            break;
-        case "STREAM":
-            assetFullName = "Streamit Coin";
-            break;
+    for (var i = 0; i < assetsData.length; i++) {
+
+        var symbolFromData = assetsData[i].symbol;
+        var baseAssetFromData = symbolFromData.split('_')[0];
+
+        if(base == baseAssetFromData) {
+            assetFullName = assetsData[i].baseAssetName;
+        }
+
     }
 
     return assetFullName;
 }
+
+
+// BTC price with satoshi emphasis
+function btcSatoshi(value) {
+
+    var splitValue = value.split('.');
+
+    var firstPart = splitValue[0];
+    var secondPart = splitValue[1];
+
+    var satoshi = secondPart.substr(0, 8);
+    var subSatoshi = '<span class="nce-saubsatoshi">' + secondPart.substr(8, 20) + '</span>';
+
+    var newValue = firstPart + '.' + satoshi + subSatoshi;
+
+    return newValue;
+}
+
 
 // Hide loader
 function hideLoader () {
