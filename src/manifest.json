@@ -3,7 +3,7 @@
   "name": "New Capital Exchange cryptocurrency values",
   "description":
     "Extension to show cryptocurrency values from New Capital Exchange",
-  "version": "1.2",
+  "version": "1.3",
   "icons": {
     "16": "assets/icons/icon16.png",
     "48": "assets/icons/icon48.png",

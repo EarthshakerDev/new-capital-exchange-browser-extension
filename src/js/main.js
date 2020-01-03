@@ -2,6 +2,7 @@
 // Exchange ticker API
 const NewCapitalExchangeTicker = "https://api.new.capital/v1/ticker";
 const NewCapitalExchangeInfo = "https://api.new.capital/v1/exchangeInfo";
+const CoinGeckoAssetInfo = "https://api.coingecko.com/api/v3/coins/";
 
 // Get Exchange API data
 var request = new XMLHttpRequest();
@@ -31,7 +32,7 @@ function generateAssets (data) {
     var assetsList = document.getElementById("nce-assets-list");
 
     // Assets pairs
-    var pairs = ["TWINS", "BTC"];
+    var pairs = ["TWINS", "BTC", "XEM"];
 
 
     // Get Exchange API data for prices
@@ -89,23 +90,33 @@ function generateAssets (data) {
                     if(quoteAsset == item){
                         var html = `
                         <li class="nce-asset">
-                            <div class="nce-asset-info">
-                                <img height="34" width="34" class="nce-asset-logo" src="/assets/images/${baseAsset}.svg" />
-                                <div class="nce-asset-full-name">${assetFullName}</div>
-                                <div><span class="nce-asset-symbol">${baseAsset}</span><span class="nce-asset-last-price"><span class="normal-price">${lastPrice}</span><span class="usd-price">${lastPriceUsd.toFixed(5)}$</span></span><span class="nce-asset-change ${priceChangeColor}">${priceChangePercent}%</span></div>
+                            <div class="nce-asset-exchange-info">
+                                <div class="nce-asset-info">
+                                    <img height="34" width="34" class="nce-asset-logo" src="/assets/images/${baseAsset}.svg" />
+                                    <div class="nce-asset-full-name">${assetFullName}</div>
+                                    <div><span class="nce-asset-symbol">${baseAsset}</span><span class="nce-asset-last-price"><span class="normal-price">${lastPrice}</span><span class="usd-price">${lastPriceUsd.toFixed(5)}$</span></span><span class="nce-asset-change ${priceChangeColor}">${priceChangePercent}%</span></div>
+                                </div>
+                                <div class="nce-asset-24h-info">
+                                    <div>24h High: <span class="normal-price">${highPrice}</span><span class="usd-price">${highPriceUsd.toFixed(5)}$</span></div>
+                                    <div>24h Low: <span class="normal-price">${lowPrice}</span><span class="usd-price">${lowPriceUsd.toFixed(5)}$</span></div>
+                                </div>
                             </div>
-                            <div class="nce-asset-24h-info">
-                                <div>24h High: <span class="normal-price">${highPrice}</span><span class="usd-price">${highPriceUsd.toFixed(5)}$</span></div>
-                                <div>24h Low: <span class="normal-price">${lowPrice}</span><span class="usd-price">${lowPriceUsd.toFixed(5)}$</span></div>
+                            <div class="nce-asset-global-info">
+                                <div class="nce-asset-stats">
+                                    <div>Market cap: </div>
+                                    <div>Circulating supply:</div>
+                                    <div>Max supply:</div>
+
+                                    <div>Website:</div>
+                                    <div>Explorer:</div>
+                                </div>
                             </div>
                         </li>`;
 
                         // Add asset to the list
                         assetsList.querySelector("[data-content-cc='" + item + "']").insertAdjacentHTML("beforeend", html);
                     }
-
                 };
-
             });
 
         } else {
@@ -132,7 +143,6 @@ function getAssetFullName(base, data) {
         if(base == baseAssetFromData) {
             assetFullName = assetsData[i].baseAssetName;
         }
-
     }
 
     return assetFullName;
@@ -201,3 +211,31 @@ showUsdBtn.addEventListener("click", function(e) {
     var assetsContainer = document.querySelector('.nce-container');
     assetsContainer.classList.toggle('usd-price-display');
 });
+
+
+
+// Display asset additional information
+document.addEventListener('click',function(e){
+   if(elementOrAncestorHasClass(e.target, '.nce-asset')){
+        // e.target.classList.toggle('nce-display-info');
+
+        // TO DO: fetch information about asset
+    }
+});
+
+
+function elementOrAncestorHasClass(element, className) {
+    if (!element || element.length === 0) {
+      return false;
+    }
+    var parent = element;
+    do {
+        if (parent === document) {
+            break;
+        }
+        if (parent.className.indexOf(className) >= 0) {
+            return true;
+        }
+    } while (parent = parent.parentNode);
+    return false;
+}

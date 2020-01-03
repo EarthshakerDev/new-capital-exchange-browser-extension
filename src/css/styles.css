@@ -19,11 +19,23 @@ a {
     background: #ffffff;
     height: 380px;
     min-height: 350px;
-    overflow-y: auto;
+    overflow-y: scroll;
     padding: 15px;
     width: 540px;
     position: relative;
+    scrollbar-color: #ddd;
+    scrollbar-width: thin;
 }
+.nce-container::-webkit-scrollbar {
+  width: 5px;
+}
+.nce-container::-webkit-scrollbar-track {
+  background: #ddd;
+}
+.nce-container::-webkit-scrollbar-thumb {
+  background: #666;
+}
+
 
 /* Header */
 .nce-header {
@@ -129,6 +141,11 @@ a {
     padding: 10px;
     margin-bottom: 12px;
     display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.nce-asset-exchange-info {
+    display: flex;
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
@@ -180,7 +197,14 @@ a {
 .nce-asset-change.red {
     color: #ed1c24;
 }
-
+.nce-asset-global-info {
+    display: none;
+    margin-top: 10px;
+    padding-left: 42px;
+}
+.nce-asset.nce-display-info .nce-asset-global-info {
+    display: block;
+}
 
 
 /* Assets tabs */
