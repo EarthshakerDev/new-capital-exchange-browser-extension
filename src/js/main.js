@@ -89,11 +89,11 @@ function generateAssets (data) {
                     // Create an asset element
                     if(quoteAsset == item){
                         var html = `
-                        <li class="nce-asset">
+                        <li class="nce-asset" data-asset="${baseAsset}">
                             <div class="nce-asset-exchange-info">
                                 <div class="nce-asset-info">
                                     <img height="34" width="34" class="nce-asset-logo" src="/assets/images/${baseAsset}.svg" />
-                                    <div class="nce-asset-full-name">${assetFullName}</div>
+                                    <div class="nce-asset-full-name">${assetFullName}<span class="nce-stats-btn"></span></div>
                                     <div><span class="nce-asset-symbol">${baseAsset}</span><span class="nce-asset-last-price"><span class="normal-price">${lastPrice}</span><span class="usd-price">${lastPriceUsd.toFixed(5)}$</span></span><span class="nce-asset-change ${priceChangeColor}">${priceChangePercent}%</span></div>
                                 </div>
                                 <div class="nce-asset-24h-info">
@@ -103,12 +103,12 @@ function generateAssets (data) {
                             </div>
                             <div class="nce-asset-global-info">
                                 <div class="nce-asset-stats">
-                                    <div>Market cap: </div>
-                                    <div>Circulating supply:</div>
-                                    <div>Max supply:</div>
+                                    <div>Market cap: <span class="nce-stat-value nce-stats-mc"></span></div>
+                                    <div>Circulating supply: <span class="nce-stat-value nce-stats-cs"></span></div>
+                                    <div>Max supply: <span class="nce-stat-value nce-stats-ms"></span></div>
 
-                                    <div>Website:</div>
-                                    <div>Explorer:</div>
+                                    <div>Website: <span class="nce-stat-value nce-stats-web"></span></div>
+                                    <div>Explorer: <span class="nce-stat-value nce-stats-exp"></span></div>
                                 </div>
                             </div>
                         </li>`;
@@ -216,26 +216,77 @@ showUsdBtn.addEventListener("click", function(e) {
 
 // Display asset additional information
 document.addEventListener('click',function(e){
-   if(elementOrAncestorHasClass(e.target, '.nce-asset')){
-        // e.target.classList.toggle('nce-display-info');
+   if(e.target.classList.contains('nce-stats-btn')){
 
-        // TO DO: fetch information about asset
-    }
-});
+        var asset = e.target.closest('.nce-asset');
+        asset.classList.toggle('stats-opened');
 
+        var assetName = asset.dataset.asset;
 
-function elementOrAncestorHasClass(element, className) {
-    if (!element || element.length === 0) {
-      return false;
-    }
-    var parent = element;
-    do {
-        if (parent === document) {
+        var assetMC = asset.querySelector('.nce-stats-mc');
+        var assetCS = asset.querySelector('.nce-stats-cs');
+        var assetMS = asset.querySelector('.nce-stats-ms');
+        var assetWEB = asset.querySelector('.nce-stats-web');
+        var assetEXP = asset.querySelector('.nce-stats-exp');
+
+        var param = "";
+
+        // CoinGecko API asset names
+        switch(assetName) {
+          case "BTC":
+            param = "bitcoin";
+            break;
+          case "DOGEC":
+            param = "dogecash";
+            break;
+          case "FIX":
+            param = "fix";
+            break;
+          case "STREAM":
+            param = "streamit-coin";
+            break;
+          case "TRTT":
+            param = "trittium";
+            break;
+          case "TWINS":
+            param = "win-win";
+            break;
+          case "XEM":
+            param = "nem";
             break;
         }
-        if (parent.className.indexOf(className) >= 0) {
-            return true;
+
+
+        if(asset.classList.contains('stats-opened')){
+          // Get CoinGecko API data for assets info
+          var request3 = new XMLHttpRequest();
+
+          request3.open("GET", CoinGeckoAssetInfo + param, true);
+          request3.onload = function() {
+
+
+              // Get JSON data
+              var data3 = JSON.parse(request3.response);
+
+              if (request3.status >= 200 && request3.status < 400) {
+
+                  assetMC.innerHTML = data3['market_data']['market_cap']['usd'].toLocaleString() + " USD";
+                  assetCS.innerHTML = data3['market_data']['circulating_supply'].toLocaleString() + " " + assetName;
+                  assetMS.innerHTML = data3['market_data']['total_supply'].toLocaleString() + " " + assetName;
+                  assetWEB.innerHTML = '<a target="_blank" href="' + data3['links']['homepage'][0] + '">' + data3['links']['homepage'][0] + '<a/>';;
+                  assetEXP.innerHTML = '<a target="_blank" href="' + data3['links']['blockchain_site'][0] + '">' + data3['links']['blockchain_site'][0] + '<a/>';
+
+              } else {
+                  assetMC.innerHTML = "Information unavailable.";
+                  assetCS.innerHTML = "Information unavailable.";
+                  assetMS.innerHTML = "Information unavailable.";
+                  assetWEB.innerHTML = "Information unavailable.";
+                  assetEXP.innerHTML = "Information unavailable.";
+              }
+          };
+
+          request3.send();
         }
-    } while (parent = parent.parentNode);
-    return false;
-}
+
+    }
+});

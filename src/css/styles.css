@@ -1,6 +1,5 @@
 *, *::before, *::after {
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     }
 
@@ -98,6 +97,8 @@ a {
 	  font-size: 12px;
     padding: 1px 0 0 9px;
     right: 2px;
+    -webkit-transition: background 0.4s ease 0s;
+    -o-transition: background 0.4s ease 0s;
     transition: background 0.4s ease 0s;
 }
 .nce-toggle + label:after {
@@ -110,6 +111,8 @@ a {
     margin-left: 2px;
     margin-top: 2px;
     padding: 0 0 0 3px;
+    -webkit-transition: margin 0.2s ease-in-out 0s;
+    -o-transition: margin 0.2s ease-in-out 0s;
     transition: margin 0.2s ease-in-out 0s;
     width: 20px;
 	}
@@ -140,15 +143,27 @@ a {
     border: 1px solid #e2e2e2;
     padding: 10px;
     margin-bottom: 12px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     width: 100%;
 }
 .nce-asset-exchange-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
     width: 100%;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 .nce-container.usd-price-display .normal-price {
     display: none;
@@ -173,6 +188,42 @@ a {
     font-size: 16px;
     line-height: 1;
 }
+
+.nce-stats-btn {
+    background-image: url("/assets/images/nce-icon-plus.svg");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    margin: -1px 0 3px 6px;
+    vertical-align: middle;
+    opacity: 0;
+    -webkit-transition: opacity 0.1s ease;
+    -o-transition: opacity 0.1s ease;
+    transition: opacity 0.1s ease;
+    cursor: pointer;
+}
+.nce-asset:hover .nce-stats-btn {
+    opacity: 1;
+}
+.stats-opened .nce-stats-btn {
+    background-image: url("/assets/images/nce-icon-minus.svg");
+    opacity: 1;
+}
+.nce-stat-value {
+    margin-left: 15px;
+}
+.nce-stat-value a {
+    color: #333333;
+    text-decoration: none;
+}
+.nce-stat-value a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+
 .nce-asset-last-price {
     font-size: 13px;
 }
@@ -202,7 +253,7 @@ a {
     margin-top: 10px;
     padding-left: 42px;
 }
-.nce-asset.nce-display-info .nce-asset-global-info {
+.stats-opened .nce-asset-global-info {
     display: block;
 }
 
@@ -223,6 +274,8 @@ a {
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
 .nce-tab:hover {
